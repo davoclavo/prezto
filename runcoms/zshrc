@@ -12,3 +12,89 @@ fi
 
 # Customize to your needs...
 
+### *** CUSTOM ***
+
+#To fix omz: one or more keys are non-bindable
+export TERM=xterm-256color
+
+# search on up/down arrow if a partial cmd is entered, otherwise browse history
+up-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle up-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N up-line-or-search-prefix
+
+down-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle down-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N down-line-or-search-prefix
+
+bindkey ${terminfo[kcuu1]} up-line-or-search-prefix
+bindkey ${terminfo[kcud1]} down-line-or-search-prefix
+# bindkey '^[OA' up-line-or-search
+# bindkey '^[OB' down-line-or-search
+
+### Alias
+# Preventive measures. Prompt for changes
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
+#Piping shortcuts
+alias -g G="| grep"
+alias -g L="| less"
+
+alias back='popd'
+alias drop='cd ~/Dropbox/'
+alias ip='curl ifconfig.me'
+alias localip='ipconfig getifaddr en0'
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
+# alias for cp with progress
+alias ccp="rsync -Ph" # -P implies --partial and --progress, and h humanises the units.
+
+alias sz="source ~/.zshrc"
+### /Alias
+
+# Insert sudo when pressing ctrl+x
+insert-sudo () {
+  BUFFER="sudo $BUFFER"
+  
+}
+zle -N insert-sudo
+bindkey '^x' insert-sudo
+
+### Added by the Heroku Toolbelt
+export PATH=/usr/local/heroku/bin:$PATH
+
+### Postgres.app
+export PATH=/Applications/Postgres.app/Contents/MacOS/bin:$PATH
+# createuser -s -r postgres
+# createdb databasename
+
+### Python
+#Python startup file
+. ~/.hogar/django_env_functions.sh
+
+export PYTHONSTARTUP=$HOME/.hogar/pythonstartup
+
+export WORKON_HOME=~/.virtualenvs
+#mkdir -p $WORKON_HOME
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+source /usr/local/bin/virtualenvwrapper.sh
+#TO-DO: find a way to apply this on .hogar http://www.doughellmann.com/docs/virtualenvwrapper/tips.html#zsh-prompt
+
+#when cd on a dir with a .venv file, load the venv with the contents of the file
+has_virtualenv() {
+    if [ -e .venv ]; then
+        workon `cat .venv`
+    fi
+}
+venv_cd () {
+    builtin cd "$@" && has_virtualenv
+}
+alias cd="venv_cd"
+### /Python
