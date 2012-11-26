@@ -32,16 +32,17 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'prompt' \
   'osx' \
-  'python' \
   'git' \
   'syntax-highlighting' \
   'ruby' \
-  'rails'
+  'rails' \
+  'python' \
+  'prompt'
 #
 # Editor
 #
+
 
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':prezto:module:editor' keymap 'emacs'
@@ -77,7 +78,7 @@ zstyle ':prezto:module:editor' keymap 'emacs'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'sorin'
+zstyle ':prezto:module:prompt' theme 'davoclavo'
 
 #
 # Screen
