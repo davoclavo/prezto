@@ -44,7 +44,7 @@ alias mv='mv -i'
 alias cp='cp -i'
 
 #Piping shortcuts
-alias -g G="| grep"
+alias -g G="| grep --color=auto"
 alias -g L="| less"
 
 alias back='popd'
@@ -98,3 +98,5 @@ venv_cd () {
 }
 alias cd="venv_cd"
 ### /Python
+
+export SVN_EDITOR=sublime
