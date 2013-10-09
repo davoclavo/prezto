@@ -99,7 +99,8 @@ venv_cd () {
 alias cd="venv_cd"
 ### /Python
 
-export SVN_EDITOR=sublime
+export SVN_EDITOR=vim
+export EDITOR=vim
 
 
 ### alias.sh
