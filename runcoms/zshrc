@@ -48,7 +48,6 @@ alias -g G="| grep --color=auto"
 alias -g L="| less"
 
 alias back='popd'
-alias drop='cd ~/Dropbox/'
 alias ip='curl ifconfig.me'
 alias localip='ipconfig getifaddr en0'
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
@@ -62,16 +61,19 @@ alias sz="source ~/.zshrc"
 # Insert sudo when pressing ctrl+x
 insert-sudo () {
   BUFFER="sudo $BUFFER"
-  
+
 }
 zle -N insert-sudo
 bindkey '^x' insert-sudo
+
+### CD Alias
+alias drop='cd ~/Dropbox/'
 
 ### Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
 
 ### Postgres.app
-export PATH=/Applications/Postgres.app/Contents/MacOS/bin:$PATH
+export PATH=/Applications/Postgres93.app/Contents/MacOS/bin:$PATH
 # createuser -s -r postgres
 # createdb databasename
 
@@ -100,8 +102,9 @@ alias cd="venv_cd"
 ### /Python
 
 export SVN_EDITOR=vim
+export GIT_EDITOR=vim
 export EDITOR=vim
-
+export VISUAL=vim
 
 ### alias.sh
 
@@ -132,3 +135,11 @@ alias upgrade='sudo apt-get update && sudo apt-get upgrade && sudo apt-get clean
 ### Node
 export NODE_PATH="/usr/local/lib/node"
 export PATH="/usr/local/share/npm/bin:$PATH"
+
+alias avconv='ffmpeg'
+
+# Ruby
+
+## RVM
+export rvmsudo_secure_path=0
+
