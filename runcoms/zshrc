@@ -17,25 +17,6 @@ fi
 #To fix omz: one or more keys are non-bindable
 export TERM=xterm-256color
 
-# search on up/down arrow if a partial cmd is entered, otherwise browse history
-up-line-or-search-prefix () {
-  local CURSOR_before_search=$CURSOR
-  zle up-line-or-search "$LBUFFER"
-  CURSOR=$CURSOR_before_search
-}
-zle -N up-line-or-search-prefix
-
-down-line-or-search-prefix () {
-  local CURSOR_before_search=$CURSOR
-  zle down-line-or-search "$LBUFFER"
-  CURSOR=$CURSOR_before_search
-}
-zle -N down-line-or-search-prefix
-
-bindkey ${terminfo[kcuu1]} up-line-or-search-prefix
-bindkey ${terminfo[kcud1]} down-line-or-search-prefix
-# bindkey '^[OA' up-line-or-search
-# bindkey '^[OB' down-line-or-search
 
 ### Alias
 # Preventive measures. Prompt for changes
@@ -53,7 +34,8 @@ alias localip='ipconfig getifaddr en0'
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 # alias for cp with progress
-alias ccp="rsync -Ph" # -P implies --partial and --progress, and h humanises the units.
+# -P implies --partial and --progress, and h humanises the units.
+alias ccp="rsync -Ph" 
 
 alias sz="source ~/.zshrc"
 ### /Alias
@@ -61,19 +43,15 @@ alias sz="source ~/.zshrc"
 # Insert sudo when pressing ctrl+x
 insert-sudo () {
   BUFFER="sudo $BUFFER"
-
 }
 zle -N insert-sudo
 bindkey '^x' insert-sudo
 
-### CD Alias
-alias drop='cd ~/Dropbox/'
-
-### Added by the Heroku Toolbelt
+# Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
 
-### Python
-#Python startup file
+###--- Python
+# Python startup file
 . ~/.hogar/django_env_functions.sh
 
 export PYTHONSTARTUP=$HOME/.hogar/pythonstartup
@@ -94,14 +72,14 @@ venv_cd () {
     builtin cd "$@" && has_virtualenv
 }
 alias cd="venv_cd"
-### /Python
+###--- /Python
 
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
 export EDITOR=vim
 export VISUAL=vim
 
-### alias.sh
+###--- alias.sh
 
 extract () {
     if [ -f $1 ] ; then
@@ -126,25 +104,23 @@ extract () {
 
 alias upgrade='sudo apt-get update && sudo apt-get upgrade && sudo apt-get clean'
 
-
-### Node
-export NODE_PATH="/usr/local/lib/node"
-export PATH="/usr/local/share/npm/bin:$PATH"
-
 alias avconv='ffmpeg'
 
-# Ruby
+#--- Node
+export NODE_PATH="/usr/local/lib/node"
+export PATH="/usr/local/share/npm/bin:$PATH"
+export PATH="$PATH:/usr/local/lib/node_modules"
+source $(brew --prefix nvm)/nvm.sh
+export PATH="$HOME/.bin:$PATH"
+
+
+#--- Ruby
 
 ## RVM
 export rvmsudo_secure_path=0
 
-
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
-
-export PATH="$PATH:/usr/local/lib/node_modules"
-source $(brew --prefix nvm)/nvm.sh
-export PATH="$HOME/.bin:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
@@ -152,3 +128,18 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH=/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH
 # createuser -s -r postgres
 # createdb databasename
+
+# Autojump
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+
+# Streaming
+alias broadcast="ttyreccast /tmp/outfile.tty"
+alias recordtty="reset && ttyrec /tmp/ttycast"
+alias train="{ while true; do sl 2>&1; done } | ttycast"
+
+# added by travis gem
+[ -f /Users/davidgu/.travis/travis.sh ] && source /Users/davidgu/.travis/travis.sh
+
+# Go
+export GOPATH=/Users/davidgu/dev/hackerschool/go
