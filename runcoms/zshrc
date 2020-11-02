@@ -38,6 +38,8 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias ccp="rsync -Ph" 
 
 alias sz="source ~/.zshrc"
+
+# alias ensime="ctags -Re . & sbt clean ensimeConfig"
 ### /Alias
 
 # Insert sudo when pressing ctrl+x
@@ -59,7 +61,7 @@ export PYTHONSTARTUP=$HOME/.hogar/pythonstartup
 export WORKON_HOME=~/.virtualenvs
 #mkdir -p $WORKON_HOME
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
-source /usr/local/bin/virtualenvwrapper.sh
+# source /usr/local/bin/virtualenvwrapper.sh
 #TO-DO: find a way to apply this on .hogar http://www.doughellmann.com/docs/virtualenvwrapper/tips.html#zsh-prompt
 
 #when cd on a dir with a .venv file, load the venv with the contents of the file
@@ -110,22 +112,18 @@ alias avconv='ffmpeg'
 export NODE_PATH="/usr/local/lib/node"
 export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="$PATH:/usr/local/lib/node_modules"
-source $(brew --prefix nvm)/nvm.sh
+# source $(brew --prefix nvm)/nvm.sh
 export PATH="$HOME/.bin:$PATH"
 
 
 #--- Ruby
 
-## RVM
-export rvmsudo_secure_path=0
-
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 ### Postgres.app
-export PATH=/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH
+export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+
 # createuser -s -r postgres
 # createdb databasename
 
@@ -143,3 +141,27 @@ alias train="{ while true; do sl 2>&1; done } | ttycast"
 
 # Go
 export GOPATH=/Users/davidgu/dev/hackerschool/go
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+source <(kubectl completion zsh)
+
+. $HOME/.asdf/completions/asdf.bash
+
+. $HOME/.asdf/asdf.sh
+
+export PATH=/usr/local/Cellar/bison/3.3.2/bin:$PATH
+# export PATH=/usr/local/opt/bison/bin:$PATH
+
+# Nix
+. /Users/david/.nix-profile/etc/profile.d/nix.sh
+
+# Use python3 for Google cloudsdk
+export CLOUDSDK_PYTHON=/Users/david/.asdf/shims/python3.7
+
+export PATH=$PATH:/Users/david/Dropbox/dev/scala/chisel/chisel-gui/utils/bin/
+
+export PATH=$PATH:~/.platformio/penv/bin
+
